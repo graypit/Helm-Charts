@@ -1,0 +1,16 @@
+replicaCount: 2
+
+ms_names: 
+  name: some_app
+
+ns_name: some_ns
+
+service:
+  type: ClusterIP
+  Proto: TCP
+  src_port: 6379
+  dst_port: 6379
+
+image:
+  name: redis
+  version: latest
