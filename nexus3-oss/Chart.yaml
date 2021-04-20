@@ -1,0 +1,7 @@
+apiVersion: v1
+appVersion: "1.0"
+description: Nexus OSS Repository Helm chart for Kubernetes
+name: nexus-server
+version: 0.0.1
+maintainers:
+  - name: Habib Guliyev

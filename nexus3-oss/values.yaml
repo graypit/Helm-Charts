@@ -1,0 +1,49 @@
+# This is a YAML-formatted file.
+# Author: Habib Guliyev 20.04.2020
+# Declare variables to be passed into your templates.
+# Define just your repository name:
+
+replicaCount: 1 # (Do not change it)
+imageFrom: sonatype/nexus3
+
+# To expose UI port for Ingress or NodePort
+service_ui:
+  enabled: true
+  type: ClusterIP
+  port: 8081
+# To expose repositories port
+service_repo:
+  enabled: true
+  type: ClusterIP
+  repositories:
+    - name: first-repo
+      port: 8083
+    - name: second-repo
+      port: 8085
+    - name: third-repo
+      port: 8089
+# To define resources
+resources:
+  enabled: true
+  limits:
+    memory: "2Gi"
+    cpu: "4000m"
+  requests:
+    memory: "2Gi"
+    cpu: "4000m"
+# To get application via domain name (+tls)
+ingress:
+  enabled: true
+  hostname: nexus.domain.com
+  tls: true
+  routes: 
+    - route: /
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+# To use persistent volume
+PersistentVolume:
+  enabled: true
+  name: nexus-pvc
+  storageClass: glusterfs-heketi
+  accessMode: ReadWriteOnce
+  size: 50Gi

@@ -1,0 +1,17 @@
+{{- if .Values.service_repo.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-repo-ports
+spec:
+  selector:
+    app: {{ .Release.Name }}
+  type: {{ .Values.service_repo.type }}
+  ports:
+{{- range .Values.service_repo.repositories }}
+      - name: {{ .name }}
+        protocol: TCP
+        port: {{ .port }}
+        targetPort: {{ .port }}
+{{- end }}
+{{- end }}

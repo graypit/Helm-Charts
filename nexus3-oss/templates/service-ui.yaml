@@ -1,0 +1,17 @@
+{{- if .Values.service_ui.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-ui
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/path:   /
+      prometheus.io/port:   '{{ .Values.service_ui.port }}'
+spec:
+  selector:
+    app: {{ .Release.Name }}
+  type: {{ .Values.service_ui.type }}
+  ports:
+    - port: {{ .Values.service_ui.port }}
+      targetPort: {{ .Values.service_ui.port }}
+{{- end }}
